@@ -6,12 +6,17 @@ class LinksController < ApplicationController
   end
 
   def create
-    unique = params[:random_string]
+    random_string = SecureRandom.urlsafe_base64(10)
+    new_link = params.require(:link).permit(:url)
+    Link.create(url: new_link[:url], random_string: random_string)
 
-    Link.find_by(random_string: unique)
+    redirect_to links_path
   end
 
   def show
+    unique = params[:random_string]
+
+    Link.find_by(random_string: unique)
   end
 
   private
