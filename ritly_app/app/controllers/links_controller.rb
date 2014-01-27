@@ -12,7 +12,7 @@ class LinksController < ApplicationController
     custom_string = params[:link][:random_string]
     full_link_url = complete_url(link[:url])
 
-    if custom_string.nil?
+    if custom_string == ""
       random_string = SecureRandom.urlsafe_base64(10)
       @link = Link.create(url: full_link_url, random_string: random_string)
     elsif unique_code?(custom_string)
