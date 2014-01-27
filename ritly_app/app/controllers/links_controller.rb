@@ -9,16 +9,21 @@ class LinksController < ApplicationController
 
   def create
     random_string = SecureRandom.urlsafe_base64(10)
-    new_link = params.require(:link).permit(:url)
-    Link.create(url: new_link[:url], random_string: random_string)
+    get_link = params.require(:link).permit(:url)
+    full_link = complete_url(get_link[:url])
 
-    redirect_to links_path
+    @link = Link.create(url: full_link, random_string: random_string)
+
+    redirect_to link_path(@link.id)
   end
 
   def show
-    unique = params[:random_string]
 
-    Link.find_by(random_string: unique)
+    id = params[:id]
+    @link = Link.find(id)
+    # unique = params[:random_string]
+
+    # @link = Link.find_by(random_string: unique)
   end
 
   private
@@ -27,7 +32,12 @@ class LinksController < ApplicationController
     def unique_code?(random_string)
     end
 
-    def unique_url?(url)
+    def complete_url(url)
+      if url.match("http://www.").nil?
+        url = "http://www." + url
+      elsif url.match("http://").nil?
+        url = "http://" + url
+      end
     end
 
     #/model methods
