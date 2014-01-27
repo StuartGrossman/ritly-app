@@ -1,0 +1,15 @@
+<div>
+  <h1> Your Shortened URL </h1>
+  <p>
+    <h4>Use this link:</h4>
+    <a href="http://localhost:3000/go/<%= @link.random_string %>">http://localhost:3000/go/<%= @link.random_string %></a>
+  </p>
+  <br>
+
+  <p>
+    <h4>To go to:</h4>
+     <a href=<%= @link.url %>><%= @link.url %></a>
+   </p>
+
+   ***
+ </div>

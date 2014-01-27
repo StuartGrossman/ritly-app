@@ -8,11 +8,16 @@ class LinksController < ApplicationController
   end
 
   def create
-    random_string = SecureRandom.urlsafe_base64(10)
-    get_link = params.require(:link).permit(:url)
-    full_link = complete_url(get_link[:url])
+    link = params.require(:link).permit(:url, :random_string)
+    custom_string = params[:link][:random_string]
+    full_link_url = complete_url(link[:url])
 
-    @link = Link.create(url: full_link, random_string: random_string)
+    if custom_string.nil?
+      random_string = SecureRandom.urlsafe_base64(10)
+      @link = Link.create(url: full_link_url, random_string: random_string)
+    else
+      @link = Link.create(url: full_link_url, random_string: custom_string)
+    end
 
     redirect_to link_path(@link.id)
   end
@@ -29,14 +34,20 @@ class LinksController < ApplicationController
   private
 
     #these should be moved to the model
-    def unique_code?(random_string)
+    def unique_code?(string)
+      Link.find_by(random_string: string).nil?
     end
 
     def complete_url(url)
-      if url.match("http://www.").nil?
-        url = "http://www." + url
-      elsif url.match("http://").nil?
-        url = "http://" + url
+      www = "www."
+      http = "http://"
+
+      if url.match(www).nil?
+        url = www + url
+      end
+
+      if url.match(http).nil?
+        url = http + url
       end
     end
 
