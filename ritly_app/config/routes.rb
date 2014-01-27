@@ -1,6 +1,5 @@
 RitlyApp::Application.routes.draw do
-
-  # Go Controller
+  resources :users, :sessions
 
   root to: "go#index"
 
@@ -8,6 +7,7 @@ RitlyApp::Application.routes.draw do
 
   # resources :links
 
+  # Go Controller
   get "/go", to: "go#index"
 
   get "/go/:id", to: "go#redirect"
@@ -23,5 +23,13 @@ RitlyApp::Application.routes.draw do
   get "/links/:id", to: "links#show", as: :link
 
   post "/links", to: "links#create"
+
+  # Users and Sessions
+
+  get '/signup', to: 'users#new'
+
+  get'/signin', to: 'sessions#new'
+
+  delete '/signout', to: 'sessions#destroy'
 
 end
