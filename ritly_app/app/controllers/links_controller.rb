@@ -15,11 +15,13 @@ class LinksController < ApplicationController
     if custom_string.nil?
       random_string = SecureRandom.urlsafe_base64(10)
       @link = Link.create(url: full_link_url, random_string: random_string)
-    else
+    elsif unique_code?(custom_string)
       @link = Link.create(url: full_link_url, random_string: custom_string)
+    else
+      render :partial => "sorry"
     end
 
-    redirect_to link_path(@link.id)
+    redirect_to link_path(@link.id) if @link != nil
   end
 
   def show
