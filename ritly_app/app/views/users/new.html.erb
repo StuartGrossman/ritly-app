@@ -1,0 +1,12 @@
+<h1>sgn up</h1>
+
+<%= form_for @user do |f| %>
+  <%= f.label "yr nm" %>
+  <%= f.text_field :name, placeholder: "Riley Bennet" %>
+  <%= f.label "yr eml" %>
+  <%= f.text_field :email, placeholder: "riley@company.com" %>
+  <%= f.label "psswrd" %>
+  <%= f.text_field :password, placeholder: "make it good!" %>
+  <%= f.label "cnfrm psswrd" %>
+  <%= f.text_field :password_confirmation, placeholder: "do it again!"%>
+

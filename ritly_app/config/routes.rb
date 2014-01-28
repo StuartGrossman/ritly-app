@@ -1,4 +1,7 @@
 RitlyApp::Application.routes.draw do
+  get "sessions/new"
+  get "users/new"
+  get "users/show"
   resources :users, :sessions
 
   root to: "go#index"
