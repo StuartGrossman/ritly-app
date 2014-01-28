@@ -1,2 +1,13 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>sgn in</h1>
+
+<%= form_for :session, url: sessions_path do |f| %>
+  <div>
+    <%= f.label "eml" %>
+    <%= f.text_field :email, placeholder: "example@mail.com" %>
+  </div>
+  <div>
+    <%= f.label "psswrd" %>
+    <%= f.password_field :password, placeholder: "word" %>
+  </div>
+  <%= f.submit "sgn in" %>
+<% end %>
