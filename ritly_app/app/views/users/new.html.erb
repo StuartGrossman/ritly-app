@@ -1,12 +1,25 @@
 <h1>sgn up</h1>
 
-<%= form_for @user do |f| %>
-  <%= f.label "yr nm" %>
-  <%= f.text_field :name, placeholder: "Riley Bennet" %>
-  <%= f.label "yr eml" %>
-  <%= f.text_field :email, placeholder: "riley@company.com" %>
-  <%= f.label "psswrd" %>
-  <%= f.text_field :password, placeholder: "make it good!" %>
-  <%= f.label "cnfrm psswrd" %>
-  <%= f.text_field :password_confirmation, placeholder: "do it again!"%>
-
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @user do |f| %>
+      <div>
+      <%= f.label "yr nm" %>
+      <%= f.text_field :name, placeholder: "Riley Bennet" %>
+      </div>
+      <div>
+      <%= f.label "yr eml" %>
+      <%= f.text_field :email, placeholder: "riley@company.com" %>
+      </div>
+      <div>
+      <%= f.label "psswrd" %>
+      <%= f.password_field :password, placeholder: "make it good!" %>
+      </div>
+      <div>
+      <%= f.label "cnfrm psswrd" %>
+      <%= f.password_field :password_confirmation, placeholder: "do it again!"%>
+      </div>
+      <%= f.submit "sbmt", class: "btn btn default" %>
+    <% end %>
+  </div>
+</div>
