@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def create
     new_user = params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    new_user[:email].downcase!
     user = User.new(new_user)
 
     # if all the validation passed, save the user to the database
@@ -17,7 +16,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to Ritly!"
 
       # TODO - implement sign_in method
-      # sign_in user
+      sign_in user
 
       redirect_to user
     else

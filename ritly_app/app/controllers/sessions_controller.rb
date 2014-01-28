@@ -7,8 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by_email(signin_params[:email].downcase)
 
     if user && user.authenticate(signin_params[:password])
-      #TODO ->
-      #sign_in(user)
+            sign_in(user)
       redirect_to(user)
     else
       # create error message and re-render the signin form
@@ -18,8 +17,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    # TODO ->
-    # sign_out
+
+    sign_out
 
     redirect_to(root_url)
 

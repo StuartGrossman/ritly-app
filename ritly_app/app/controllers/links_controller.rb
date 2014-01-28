@@ -1,4 +1,7 @@
 class LinksController < ApplicationController
+  #but i do want non-signed in folk to do these for now
+  #before_filter :signed_in_user, only: [:create, :new, :edit, :update]
+
   def index
     @links = Link.all
   end
@@ -15,13 +18,16 @@ class LinksController < ApplicationController
     if custom_string == ""
       random_string = SecureRandom.urlsafe_base64(10)
       @link = Link.create(url: full_link_url, random_string: random_string)
+      redirect_to link_path(@link.id)
     elsif unique_code?(custom_string)
       @link = Link.create(url: full_link_url, random_string: custom_string)
+      redirect_to link_path(@link.id)
     else
-      render :partial => "sorry"
+      @link = Link.new
+      flash[:error] ="sorry! that link is in use!"
+      render :new
     end
 
-    redirect_to link_path(@link.id) if @link != nil
   end
 
   def show
@@ -35,9 +41,9 @@ class LinksController < ApplicationController
 
   private
 
-    #these should be moved to the model
+    #these should maybe be moved to the model
     def unique_code?(string)
-      Link.find_by(random_string: string).nil?
+      Link.find_by_random_string(string).nil?
     end
 
     def complete_url(url)

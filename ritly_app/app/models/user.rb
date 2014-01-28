@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   # http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password
   has_secure_password
 
-  before_save :create_remember_token
+  before_create { |user| user.email.downcase! }
+  before_create :create_remember_token
 
   private
     def create_remember_token
